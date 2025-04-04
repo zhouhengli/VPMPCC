@@ -118,6 +118,22 @@ Track files are located in `toolkit/tracks/`, where path and boundaries are defi
 
 Parameter files are saved in `toolkit/params/`, where the parameter definitions are consistent with those described in the [paper](https://arxiv.org/pdf/2410.11570). 
 
+## 🛠️ Issues and Fixes
+
+### Missing `BO_params_icra.json` File
+
+**Problem**:
+When running the `planner_loader.py` script in the `nonlinear_mpc_casadi` package, you may encounter the following error:
+
+FileNotFoundError: [Errno 2] No such file or directory: '/home/ddrx/f1tenth_ws/params/mpc/BO_params_icra.json'
+
+**Solution**:
+1. Open the `ddrx_unified_params.yaml` file located in the "VPMPCC/params" directory.
+2. Locate the following line:
+	home_dir: "/home/ddrx"
+	params_file: "BO_params_icra"
+3. Change "ddrx" to your system's username (example "/home/ddrx" to "/home/usr")
+4. Save the file.
 
 
 ## 🤗 Acknowledgments
