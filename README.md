@@ -26,12 +26,13 @@ Either of the following two methods can be used to deploy the environment.
 
 ### ✅ Run directly using the pre-built Docker image
 
-Alternatively, the Docker configuration can be pulled from [TBA](TBA). Simply download it to your Linux system.
+Alternatively, the Docker configuration can be pulled from [Google Drive](https://drive.google.com/file/d/1pk2MK0nKocj3GiwBniOZNmhHBxJ0LjpT/view?usp=drive_link). Simply download it to your Linux system.
 
-**[1/2]** Import the `prebuilt_vpmpcc_v1.0.tar` file as a new image using Docker import:
+
+**[1/2]** Import the `prebuilt_v1.0.tar` file as a new image using Docker import:
 
 ```
-docker import prebuilt_vpmpcc_v1.0.tar prebuilt_vpmpcc_v1.0
+docker import prebuilt_v1.0.tar prebuilt_v1.0
 ```
 
 **[2/2]** Now, you can use the imported image to create and launch a new container:
@@ -42,7 +43,7 @@ sudo docker run -it \
   -e DISPLAY=$DISPLAY \
   -v <host_path>/f1tenth_ws:/home/ddrx/f1tenth_ws \
   -w /home/ddrx/f1tenth_ws \
-  prebuilt_vpmpcc_v1.0 \
+  prebuilt_v1.0 \
   /bin/bash
 ```
 ### ✅ [Optional] Reconfigure from scratch using Docker
