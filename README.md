@@ -154,11 +154,13 @@ Please contact [Zhouheng Li](https://zhouhengli.github.io) if you have any quest
 If you find our work useful, please consider citing:
 
 ```
-@article{li2024data, 
+@INPROCEEDINGS{11128227,
+  author={Li, Zhouheng and Zhou, Bei and Hu, Cheng and Xie, Lei and Su, Hongye},
+  booktitle={2025 IEEE International Conference on Robotics and Automation (ICRA)}, 
   title={A Data-Driven Aggressive Autonomous Racing Framework Utilizing Local Trajectory Planning with Velocity Prediction}, 
-  author={Li, Zhouheng and Zhou, Bei and Hu, Cheng and Xie, Lei and Su, Hongye}, 
-  journal={arXiv preprint arXiv:2410.11570}, 
-  year={2024}
+  year={2025},
+  pages={16657-16663},
+  doi={10.1109/ICRA55743.2025.11128227}
 }
 ```
 
