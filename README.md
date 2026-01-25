@@ -213,7 +213,7 @@ Please contact [Zhouheng Li](https://zhouhengli.github.io) if you have any quest
 
 ## 📑 Citations
 
-If you find this project useful for your research, please consider citing the following papers and leaving a ⭐—both would be greatly appreciated :)
+If you find this project useful for your research, please consider citing the following papers :)
 
 ```
 @article{Li2025EVOMPCC,
