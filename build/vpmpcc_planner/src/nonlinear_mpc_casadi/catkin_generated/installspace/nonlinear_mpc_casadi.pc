@@ -1,8 +1,0 @@
-prefix=/home/ddrx/f1tenth_ws/install
-
-Name: nonlinear_mpc_casadi
-Description: Description of nonlinear_mpc_casadi
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

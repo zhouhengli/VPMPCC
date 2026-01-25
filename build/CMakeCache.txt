@@ -383,7 +383,7 @@ RT_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/librt.so
 SETUPTOOLS_DEB_LAYOUT:BOOL=ON
 
 //Name of the computer/site where compile is being run
-SITE:STRING=a9960404d5f9
+SITE:STRING=bd04dad5779b
 
 //LSB Distrib tag
 UBUNTU:BOOL=TRUE
@@ -404,13 +404,13 @@ _gtest_INCLUDES:FILEPATH=/usr/include/gtest/gtest.h
 _gtest_SOURCES:FILEPATH=/usr/src/gtest/src/gtest.cc
 
 //Value Computed by CMake
-ackermann_msgs_BINARY_DIR:STATIC=/home/ddrx/f1tenth_ws/build/vpmpcc_planner/src/ackermann_msgs
+ackermann_msgs_BINARY_DIR:STATIC=/home/ddrx/f1tenth_ws/build/evo-mpcc_planner/src/ackermann_msgs
 
 //The directory containing a CMake configuration file for ackermann_msgs.
 ackermann_msgs_DIR:PATH=/home/ddrx/f1tenth_ws/devel/share/ackermann_msgs/cmake
 
 //Value Computed by CMake
-ackermann_msgs_SOURCE_DIR:STATIC=/home/ddrx/f1tenth_ws/src/vpmpcc_planner/src/ackermann_msgs
+ackermann_msgs_SOURCE_DIR:STATIC=/home/ddrx/f1tenth_ws/src/evo-mpcc_planner/src/ackermann_msgs
 
 //The directory containing a CMake configuration file for actionlib.
 actionlib_DIR:PATH=/opt/ros/noetic/share/actionlib/cmake
@@ -525,16 +525,16 @@ message_runtime_DIR:PATH=/opt/ros/noetic/share/message_runtime/cmake
 nav_msgs_DIR:PATH=/opt/ros/noetic/share/nav_msgs/cmake
 
 //Value Computed by CMake
-nonlinear_mpc_casadi_BINARY_DIR:STATIC=/home/ddrx/f1tenth_ws/build/vpmpcc_planner/src/nonlinear_mpc_casadi
+nonlinear_mpc_casadi_BINARY_DIR:STATIC=/home/ddrx/f1tenth_ws/build/evo-mpcc_planner/src/nonlinear_mpc_casadi
 
 //Value Computed by CMake
-nonlinear_mpc_casadi_SOURCE_DIR:STATIC=/home/ddrx/f1tenth_ws/src/vpmpcc_planner/src/nonlinear_mpc_casadi
+nonlinear_mpc_casadi_SOURCE_DIR:STATIC=/home/ddrx/f1tenth_ws/src/evo-mpcc_planner/src/nonlinear_mpc_casadi
 
 //Value Computed by CMake
-osuf1_common_BINARY_DIR:STATIC=/home/ddrx/f1tenth_ws/build/vpmpcc_planner/src/osuf1_common
+osuf1_common_BINARY_DIR:STATIC=/home/ddrx/f1tenth_ws/build/evo-mpcc_planner/src/osuf1_common
 
 //Value Computed by CMake
-osuf1_common_SOURCE_DIR:STATIC=/home/ddrx/f1tenth_ws/src/vpmpcc_planner/src/osuf1_common
+osuf1_common_SOURCE_DIR:STATIC=/home/ddrx/f1tenth_ws/src/evo-mpcc_planner/src/osuf1_common
 
 //The directory containing a CMake configuration file for rosconsole.
 rosconsole_DIR:PATH=/opt/ros/noetic/share/rosconsole/cmake

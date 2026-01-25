@@ -6,6 +6,10 @@
   <!-- pacejka or linear -->
   <arg name="tire_model" default="pacejka"/> 
   <param name="/tire_model" value="$(arg tire_model)"/>
+  <!-- initial pose (map frame) -->
+  <arg name="init_x" default="10.17"/>
+  <arg name="init_y" default="5.66"/>
+  <arg name="init_yaw" default="1.318"/>  <!-- radians -->
 
   <!-- rviz bool -->
   <arg name="rviz" default="True"/>
@@ -26,8 +30,17 @@
 
   <rosparam file="/home/ddrx/f1tenth_ws/params/ddrx_unified_params.yaml" command="load"/>
   
+  <node pkg="nonlinear_mpc_casadi" type="publish_initialpose.py" name="publish_initialpose" output="screen">
+    <param name="x" value="$(arg init_x)"/>
+    <param name="y" value="$(arg init_y)"/>
+    <param name="yaw" value="$(arg init_yaw)"/>
+    <param name="frame_id" value="map"/>
+    <param name="delay" value="1.0"/>
+  </node>
+
   <!-- Launch RVIZ -->
   <group if="$(arg rviz)">
     <node pkg="rviz" type="rviz" name="rviz" args="-d $(find f1tenth_simulator)/launch/simulator.rviz" output="screen"/>
   </group>
+  
 </launch>

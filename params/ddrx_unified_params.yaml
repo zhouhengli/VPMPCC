@@ -5,7 +5,10 @@ converter:
   # is_sim: False
 
 home_dir: "/home/ddrx"
-params_file: "BO_params_icra"
+
+# params_file: "BO_params_icra"   # General performance, more stable than LTM
+# params_file: "BO_params_LTM"      # High performance, less stable than icra. For stable racing, overall velocity is scaled down in json file
+params_file: "BO_params_OT"     # Overtaking performance, only difference from LTM is lower cte weight
 
 # is_jit: True # For jetson, jit needs to be true for computation efficiency
 is_jit: False # works well for NUC
@@ -16,4 +19,3 @@ goal_topic_name: /move_base_simple/goal
 cmd_vel_topic_name: /vesc/high_level/ackermann_cmd_mux/input/nav_1
 localized_pose_topic_name: /tracked_pose
 ################ Topic names FOR REAL RACING ################
-

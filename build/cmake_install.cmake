@@ -131,10 +131,10 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/ddrx/f1tenth_ws/build/gtest/cmake_install.cmake")
-  include("/home/ddrx/f1tenth_ws/build/vpmpcc_planner/src/ackermann_msgs/cmake_install.cmake")
+  include("/home/ddrx/f1tenth_ws/build/evo-mpcc_planner/src/ackermann_msgs/cmake_install.cmake")
   include("/home/ddrx/f1tenth_ws/build/utils/f110_msgs/cmake_install.cmake")
-  include("/home/ddrx/f1tenth_ws/build/vpmpcc_planner/src/nonlinear_mpc_casadi/cmake_install.cmake")
-  include("/home/ddrx/f1tenth_ws/build/vpmpcc_planner/src/osuf1_common/cmake_install.cmake")
+  include("/home/ddrx/f1tenth_ws/build/evo-mpcc_planner/src/nonlinear_mpc_casadi/cmake_install.cmake")
+  include("/home/ddrx/f1tenth_ws/build/evo-mpcc_planner/src/osuf1_common/cmake_install.cmake")
   include("/home/ddrx/f1tenth_ws/build/f1tenth_simulator/cmake_install.cmake")
 
 endif()

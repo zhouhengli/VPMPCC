@@ -67,7 +67,7 @@ set(osuf1_common_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(osuf1_common_SOURCE_PREFIX /home/ddrx/f1tenth_ws/src/vpmpcc_planner/src/osuf1_common)
+  set(osuf1_common_SOURCE_PREFIX /home/ddrx/f1tenth_ws/src/evo-mpcc_planner/src/osuf1_common)
   set(osuf1_common_DEVEL_PREFIX /home/ddrx/f1tenth_ws/devel)
   set(osuf1_common_INSTALL_PREFIX "")
   set(osuf1_common_PREFIX ${osuf1_common_DEVEL_PREFIX})
@@ -110,7 +110,7 @@ if(NOT "/home/ddrx/f1tenth_ws/devel/include " STREQUAL " ")
         message(FATAL_ERROR "Project 'osuf1_common' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  ${_report}")
       endif()
     else()
-      message(FATAL_ERROR "Project 'osuf1_common' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/ddrx/f1tenth_ws/src/vpmpcc_planner/src/osuf1_common/${idir}'.  ${_report}")
+      message(FATAL_ERROR "Project 'osuf1_common' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/ddrx/f1tenth_ws/src/evo-mpcc_planner/src/osuf1_common/${idir}'.  ${_report}")
     endif()
     _list_append_unique(osuf1_common_INCLUDE_DIRS ${include})
   endforeach()
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/ddrx/f1tenth_ws/devel/lib;/home/ddrx/f1tenth_ws/devel/lib;/opt/ros/noetic/lib)
+    foreach(path /home/ddrx/f1tenth_ws/devel/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

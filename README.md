@@ -1,15 +1,51 @@
-# 🏁 Local Trajectory Planning with Velocity Prediction
+# 🏁 EVO-MPCC: Enhanced Velocity Optimization Model Predictive Contouring Control
 
-Deploy and visualize the trajectory planner based on MPCC from the ICRA 2025 paper "[A Data-Driven Aggressive Autonomous Racing Framework Utilizing Local Trajectory Planning with Velocity Prediction](https://arxiv.org/pdf/2410.11570)". The main branch contains the F1tenth simulator and the VPMPCC planner.
+<div align="center">
+  <img src="https://img.shields.io/badge/ROS-Noetic-blue" />
+  <img src="https://img.shields.io/badge/Docker-supported-2496ED" />
+  <a href="https://ssrn.com/abstract=6127037">
+    <img src="https://img.shields.io/badge/SSRN-6127037-blue" />
+  </a>
+  <a href="https://ieeexplore.ieee.org/abstract/document/11128227">
+    <img src="https://img.shields.io/badge/ICRA-2025-blueviolet" />
+  </a>
+</div>
+
+> **TL;DR**: EVO-MPCC is a real-time trajectory planning framework for autonomous racing that enables **high-speed cornering and overtaking** under limited prediction horizons.
+
+
+
+This repository provides an implementation for deploying and visualizing EVO-MPCC from the paper "[EVO-MPCC: Enhanced Velocity Optimization with Learning-Based Auto-Tuning for Real-Time Vehicle Trajectory Planning](https://ssrn.com/abstract=6127037)", a framework that explicitly incorporates a reference velocity profile (RVP) into the MPCC objective. By performing continuous velocity optimization along the racetrack, EVO-MPCC enables feasible cornering and high-performance racing even under a limited prediction horizon. Based on the RVP, two complementary formulations are developed: EVO-RVT, which performs reference velocity tracking for high-performance racing in obstacle-free scenarios, and EVO-TVC, which introduces an RVP-based terminal velocity cost to enable flexible, collision-free, and time-efficient overtaking. The main branch contains both the simulator and the trajectory planner implementation.
+
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <div align="center">
+        <img src="./media/teaser.png" alt="teaser" width="420" />
+        <p><b>(a)</b> Cornering performance comparison.</p>
+    </div>
+    <div align="center">
+        <img src="./media/evo-tvc.gif" alt="teaser" width="360" />
+        <p><b>(b)</b> Overtaking Performance.</p>
+    </div>
+</div>
+
+
+
+
+## 🔄 From VPMPCC to EVO-MPCC
+
+In my earlier work, the Velocity Prediction MPCC (VPMPCC) method was proposed, which corresponds to the EVO-RVT formulation and was presented in my ICRA2025 paper, “[A Data-Driven Aggressive Autonomous Racing Framework Utilizing Local Trajectory Planning with Velocity Prediction](https://arxiv.org/pdf/2410.11570).” Building upon VPMPCC, this repository further extends the framework to EVO-MPCC, enabling enhanced performance and overtaking capabilities.
 
 <div style="display: flex; justify-content: space-between; align-items: center;">
   <img src="./media/teaser.jpg" alt="teaser" width="420" />
-  <img src="./media/vpmpcc.gif" alt="teaser" width="360" />
+  <img src="./media/evo-rvt.gif" alt="teaser" width="360" />
 </div>
+
+
+
 
 ## 🪄 Quickstart
 
-The ROS environment for the current branch is neotic under Ubuntu 20.04. Two methods are provided to configure the runtime environment:
+This section provides a minimal setup to quickly run EVO-MPCC in simulation. The ROS environment for the current branch is Noetic under Ubuntu 20.04. Two methods are provided to configure the runtime environment:
 
 1. Run directly using the pre-built Docker image.
 2. Reconfigure from scratch using Docker.
@@ -17,12 +53,13 @@ The ROS environment for the current branch is neotic under Ubuntu 20.04. Two met
 Start by cloning this repository to the host:
 
 ```bash
-git clone https://github.com/zhouhengli/VPMPCC.git f1tenth_ws
+git clone https://github.com/zhouhengli/EVO-MPCC.git f1tenth_ws
+cd ./f1tenth_ws
 ```
 
 ## 🛠️ Configure
 
-Either of the following two methods can be used to deploy the environment.
+Either of the following two methods can be used to deploy the environment. 
 
 ### ✅ Run directly using the pre-built Docker image
 
@@ -37,60 +74,62 @@ docker import prebuilt_v1.0.tar prebuilt_v1.0
 
 **[2/2]** Now, you can use the imported image to create and launch a new container:
 
-```
-sudo docker run -it \
+```bash
+docker run -it \
+  --name evo-mpcc \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
   -e DISPLAY=$DISPLAY \
-  -v <host_path>/f1tenth_ws:/home/ddrx/f1tenth_ws \
+  -v "$PWD":/home/ddrx/f1tenth_ws \
   -w /home/ddrx/f1tenth_ws \
   prebuilt_v1.0 \
-  /bin/bash
+  bash -c "source /home/ddrx/f1tenth_ws/toolkit/docker_start.sh && exec /bin/bash"
 ```
 ### ✅ [Optional] Reconfigure from scratch using Docker
 
 **[1/3]** Pull Docker image:
 
 ```bash
-sudo docker pull ros:noetic-robot-focal
+docker pull ros:noetic-robot-focal
 ```
 
 **[2/3]** Set up a container:
 
 ```bash
-sudo docker run -it \
+docker run -it \
+  --name evo-mpcc \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
   -e DISPLAY=$DISPLAY \
-  -v <host_path>/f1tenth_ws:/home/ddrx/f1tenth_ws \
+  -v "$PWD":/home/ddrx/f1tenth_ws \
+  -w /home/ddrx/f1tenth_ws \
   ros:noetic-robot-focal \
-  /bin/bash
+  bash -c "source /home/ddrx/f1tenth_ws/toolkit/docker_start.sh && exec /bin/bash"
 ```
 
 **[3/3]** Set up the necessary dependencies in the corresponding container using the bash script:
 
 ``` bash
-cd /home/ddrx/f1tenth_ws/
 chmod +x setup_env.sh
 ./setup_env.sh
 ```
 
-### 🚀 Planning
+### 🚀 Quick Planning Demo
 
 **[1/3]** Set up a container and enter the following commands. After the final command, the map should pop up:
 
 ```bash
-source /opt/ros/noetic/setup.bash && source /home/ddrx/f1tenth_ws/devel/setup.bash
+docker exec -it evo-mpcc /bin/bash
+source /home/ddrx/f1tenth_ws/toolkit/docker_start.sh
 ./toolkit/sim_setup.sh -n mapwheV1
 ```
 
-[Optional] If the RViz interface does not appear and there is an error `qt.qpa.xcb: could not connect to display :0`, it may be because Docker does not have access to the display server.
+[Optional] If the RViz interface does not appear and there are error `qt.qpa.xcb: could not connect to display :0` or `qt.qpa.plugin: Could not load the Qt platform plugin "xcb" in "" even though it was found`, it may be because Docker does not have access to the display server.
 Try the following command in the host machine: `xhost +local:docker`.
 
-**[2/3]** Start a new container and run the VPMPCC planner:
+**[2/3]** Start a new container and run the EVO-MPCC planner:
 
 ```bash
-sudo docker exec -it <CONTAINER ID> /bin/bash
-export PYTHONPATH=$PYTHONPATH:/home/ddrx/f1tenth_ws/toolkit/casadi/
-source /opt/ros/noetic/setup.bash && source /home/ddrx/f1tenth_ws/devel/setup.bash
+docker exec -it evo-mpcc /bin/bash
+source /home/ddrx/f1tenth_ws/toolkit/docker_start.sh
 roslaunch nonlinear_mpc_casadi ddrx_nmpcc.launch
 ```
 
@@ -102,10 +141,16 @@ roslaunch nonlinear_mpc_casadi ddrx_nmpcc.launch
   <img src="./media/runtime.gif" alt="teaser" width="460" />
   <img src="./media/sim.gif" alt="teaser" width="305" />
 </div>
+By modifying the configuration specified in `params/ddrx_unified_params.yaml`, different parameter sets can be selected. Among them, the `params/mpc/BO_params_icra.json` and `params/mpc/BO_params_LTM.json` configurations do not include overtaking behavior (as indicated by their JSON settings) and can be used for normal racing scenarios without overtaking.
+
+To enable overtaking, please use `params/mpc/BO_params_OT.json`. In this case, obstacle positions are manually specified in
+ `src/evo-mpcc_planner/src/nonlinear_mpc_casadi/scripts/Nonlinear_MPC_node.py`.
+
+
 
 ## 💻 Customization
 
-This project allows for the customization of the map and track files used by the VPMPCC method, as well as the parameters. Adjustments can be made according to specific needs.
+This project allows for the customization of the map and track files used by the EVO-MPCC method, as well as the parameters. Adjustments can be made according to specific needs.
 
 Before modifying them, replace the `home_dir` in `./params/ddrx_unified_params.yaml` with the path to the track files. 
 
@@ -117,7 +162,7 @@ Track files are located in `toolkit/tracks/`, where path and boundaries are defi
 
 ### ✏️ Parameter Tuning
 
-Parameter files are saved in `toolkit/params/`, where the parameter definitions are consistent with those described in the [paper](https://arxiv.org/pdf/2410.11570). 
+Parameter files are stored in `toolkit/params/`, and their definitions are consistent with those described in the corresponding papers. Specifically, the `BO_params_LTM.json` and `BO_params_OT.json` configurations follow the settings described in the EVO-MPCC paper, whereas `BO_params_icra.json` corresponds to the parameter settings presented in the ICRA 2025 paper. The primary difference among these configurations lies in the objective functions used during Bayesian Optimization.
 
 ## 🛠️ Issues and Fixes
 
@@ -126,16 +171,24 @@ Parameter files are saved in `toolkit/params/`, where the parameter definitions 
 **Problem**:
 When running the `planner_loader.py` script in the `nonlinear_mpc_casadi` package, you may encounter the following error:
 
-FileNotFoundError: [Errno 2] No such file or directory: '/home/ddrx/f1tenth_ws/params/mpc/BO_params_icra.json'
+`FileNotFoundError: [Errno 2] No such file or directory: '/home/ddrx/f1tenth_ws/params/mpc/BO_params_icra.json'`
 
 **Solution**:
-1. Open the `ddrx_unified_params.yaml` file located in the "VPMPCC/params" directory.
+1. Open the `ddrx_unified_params.yaml` file located in the "params" directory.
 2. Locate the following line:
 	home_dir: "/home/ddrx"
 	params_file: "BO_params_icra"
 3. Change "ddrx" to your system's username (example "/home/ddrx" to "/home/usr")
 4. Save the file.
 
+## ⭐ Why Star This Repository?
+
+- ✔️ State-of-the-art MPCC-based racing planner with overtaking capability
+- ✔️ Fully reproducible simulation on F1TENTH
+- ✔️ Open-source implementation accompanying peer-reviewed publications
+- ✔️ Actively maintained and extensible for future research
+
+Last but not least, a ⭐ would be greatly appreciated and would serve as strong encouragement for my continued open-source research efforts.
 
 ## 🤗 Acknowledgments
 
@@ -147,11 +200,21 @@ Many thanks to the excellent open-source repositories listed below:
 - [Cartographer](https://github.com/cartographer-project/cartographer)
 - [CasADi](https://web.casadi.org/)
 
-Please contact [Zhouheng Li](https://zhouhengli.github.io) if you have any questions or suggestions.
+Please contact [Zhouheng Li](https://zhouhengli.github.io) if you have any questions or suggestions. If you encounter any issues or have questions during deployment, feel free to open an issue or submit a pull request—contributions and feedback are very welcome.
 
 ## 📑 Citations
 
-If you find our work useful, please consider citing:
+If you find this project useful for your research, please consider citing the following papers and starring the repository:
+
+```
+@article{Li2025EVOMPCC,
+  title   = {EVO-MPCC: Enhanced Velocity Optimization with Learning-Based Auto-Tuning for Real-Time Vehicle Trajectory Planning},
+  author  = {Li, Zhouheng and Zhou, Bei and Piccinini, Mattia and Hu, Cheng and Zarrouki, Baha and Mangharam, Rahul and Xie, Lei},
+  year    = {2025},
+  doi     = {10.2139/ssrn.6127037},
+  url     = {https://ssrn.com/abstract=6127037},
+}
+```
 
 ```
 @INPROCEEDINGS{11128227,

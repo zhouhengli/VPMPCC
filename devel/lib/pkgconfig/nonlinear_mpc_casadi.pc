@@ -2,7 +2,7 @@ prefix=/home/ddrx/f1tenth_ws/devel
 
 Name: nonlinear_mpc_casadi
 Description: Description of nonlinear_mpc_casadi
-Version: 0.0.0
+Version: 1.0.0
 Cflags: 
 Libs: -L${prefix}/lib 
 Requires: 

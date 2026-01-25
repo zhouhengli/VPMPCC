@@ -1,2 +1,2 @@
-f1tenth_simulator:utils/f110_msgs:vpmpcc_planner/src/ackermann_msgs:vpmpcc_planner/src/nonlinear_mpc_casadi:vpmpcc_planner/src/osuf1_common
+evo-mpcc_planner/src/ackermann_msgs:evo-mpcc_planner/src/nonlinear_mpc_casadi:evo-mpcc_planner/src/osuf1_common:f1tenth_simulator:utils/f110_msgs
 -DCATKIN_DEVEL_PREFIX=/home/ddrx/f1tenth_ws/devel -DCMAKE_INSTALL_PREFIX=/home/ddrx/f1tenth_ws/install -G Unix Makefiles

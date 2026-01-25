@@ -7,7 +7,8 @@
 # new environment variables
 
 # modified environment variables
-export LD_LIBRARY_PATH='/opt/ros/noetic/lib'
-export PKG_CONFIG_PATH='/opt/ros/noetic/lib/pkgconfig'
+export CMAKE_PREFIX_PATH="/home/ddrx/f1tenth_ws/devel:$CMAKE_PREFIX_PATH"
 export PWD='/home/ddrx/f1tenth_ws/build'
-export PYTHONPATH='/opt/ros/noetic/lib/python3/dist-packages:/home/ddrx/f1tenth_ws/devel/lib/python2.7/dist-packages'
+export PYTHONPATH='/opt/ros/noetic/lib/python3/dist-packages:/home/ddrx/f1tenth_ws/toolkit/casadi/'
+export ROSLISP_PACKAGE_DIRECTORIES='/home/ddrx/f1tenth_ws/devel/share/common-lisp'
+export ROS_PACKAGE_PATH="/home/ddrx/f1tenth_ws/src:$ROS_PACKAGE_PATH"
