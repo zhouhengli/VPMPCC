@@ -11,23 +11,27 @@
   </a>
 </div>
 
+
 > **TL;DR**: EVO-MPCC is a real-time trajectory planning framework for autonomous racing that enables **high-speed cornering and overtaking** under limited prediction horizons.
 
 
 
 This repository provides an implementation for deploying and visualizing EVO-MPCC from the paper "[EVO-MPCC: Enhanced Velocity Optimization with Learning-Based Auto-Tuning for Real-Time Vehicle Trajectory Planning](https://ssrn.com/abstract=6127037)", a framework that explicitly incorporates a reference velocity profile (RVP) into the MPCC objective. By performing continuous velocity optimization along the racetrack, EVO-MPCC enables feasible cornering and high-performance racing even under a limited prediction horizon. Based on the RVP, two complementary formulations are developed: EVO-RVT, which performs reference velocity tracking for high-performance racing in obstacle-free scenarios, and EVO-TVC, which introduces an RVP-based terminal velocity cost to enable flexible, collision-free, and time-efficient overtaking. The main branch contains both the simulator and the trajectory planner implementation.
 
-<div style="display: flex; justify-content: space-between; align-items: center;">
-    <div align="center">
-        <img src="./media/teaser.png" alt="teaser" width="420" />
-        <p><b>(a)</b> Cornering performance comparison.</p>
-    </div>
-    <div align="center">
-        <img src="./media/evo-tvc.gif" alt="teaser" width="360" />
-        <p><b>(b)</b> Overtaking Performance.</p>
-    </div>
-</div>
-
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="./media/teaser.png" alt="teaser" width="380" />
+      <br/>
+      <b>(a)</b> Cornering performance comparison.
+    </td>
+    <td align="center" width="50%">
+      <img src="./media/evo-tvc.gif" alt="teaser" width="360" />
+      <br/>
+      <b>(b)</b> Overtaking performance.
+    </td>
+  </tr>
+</table>
 
 
 
@@ -35,12 +39,16 @@ This repository provides an implementation for deploying and visualizing EVO-MPC
 
 In my earlier work, the Velocity Prediction MPCC (VPMPCC) method was proposed, which corresponds to the EVO-RVT formulation and was presented in my ICRA2025 paper, “[A Data-Driven Aggressive Autonomous Racing Framework Utilizing Local Trajectory Planning with Velocity Prediction](https://arxiv.org/pdf/2410.11570).” Building upon VPMPCC, this repository further extends the framework to EVO-MPCC, enabling enhanced performance and overtaking capabilities.
 
-<div style="display: flex; justify-content: space-between; align-items: center;">
-  <img src="./media/teaser.jpg" alt="teaser" width="420" />
-  <img src="./media/evo-rvt.gif" alt="teaser" width="360" />
-</div>
-
-
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="./media/teaser.jpg" width="420" />
+    </td>
+    <td align="center" width="50%">
+      <img src="./media/evo-rvt.gif" width="360" />
+    </td>
+  </tr>
+</table>
 
 
 ## 🪄 Quickstart
@@ -141,7 +149,8 @@ roslaunch nonlinear_mpc_casadi ddrx_nmpcc.launch
   <img src="./media/runtime.gif" alt="teaser" width="460" />
   <img src="./media/sim.gif" alt="teaser" width="305" />
 </div>
-By modifying the configuration specified in `params/ddrx_unified_params.yaml`, different parameter sets can be selected. Among them, the `params/mpc/BO_params_icra.json` and `params/mpc/BO_params_LTM.json` configurations do not include overtaking behavior (as indicated by their JSON settings) and can be used for normal racing scenarios without overtaking.
+
+By modifying the configuration specified in `params/ddrx_unified_params.yaml`, different parameter sets can be selected. Among them, the `params/mpc/BO_params_icra.json` and `params/mpc/BO_params_LTM.json` configurations do not include overtaking behavior (as indicated by their JSON settings) and can be used for standard racing scenarios without overtaking.
 
 To enable overtaking, please use `params/mpc/BO_params_OT.json`. In this case, obstacle positions are manually specified in
  `src/evo-mpcc_planner/src/nonlinear_mpc_casadi/scripts/Nonlinear_MPC_node.py`.
